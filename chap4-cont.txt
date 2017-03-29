@@ -1,0 +1,429 @@
+Module 4 Continued:
+
+1. HTTP methods
+2. URL Re-writing
+
+URL - Rewriting :
+-----------------
+URL - Uniform Resource Locator
+www.google.com
+www.facebook.com
+
+URI - Uniform Resource Identifier
+http://localhost:8080/name
+http://localhost:4174/Servlet1
+
+Consider the below URL's:
+www.youtube.com
+https://www.youtube.com/watch?v=nkS_Ar0Yad0
+https://www.youtube.com/watch?v=0Nba-KZu0og
+
+--- in the above URL,the video which we click is fetched
+in the URL and passed to a page as a parameter
+
+Index.html
+<form action="Servlet1">
+<input type="text" name="t1"/>
+<input type="Submit" value="Click"/>
+</form>
+
+Servlet1.java
+
+String name=request.getParameter("t1");
+
+String data="?v="+name;
+
+out.println("<a href='Servlet2"+data+"'>GotoServlet2</a>");
+
+
+Servlet2.java:
+
+String res=request.getParameter("v");
+
+http://localhost:8080/Servlet1?v=Oliver
+
+---------------------------------------------------X
+
+HTTP: [HyperText Transfer Proctol]
+There major methods:
+1. processRequest - logic
+2. doGet
+3. doPost 
+
+void processRequest(){
+//logic
+}
+
+void doGet(){
+processRequest();
+}
+
+void doPost(){
+processRequest();
+}
+
+doGet() - default method which gets invoked.
+
+get method
+-- pass small amount of data
+-- does not provide security, since the URL carries the value
+
+Post method
+-- pass large no.of data
+-- provides security , value is hidden in the URL
+
+
+<form method="get" action="Servlet1">
+Enter Name:<input type="text" name="t1"/>
+Enter Pass:<input type="password" name="t2"/>
+<input type="Submit" value="Click"/>
+</form>
+
+http://localhost:8080/Servlet1?t1=Oliver&t2=niit
+
+<form method="post" action="Servlet1">
+Enter Name:<input type="text" name="t1"/>
+Enter Pass:<input type="password" name="t2"/>
+<input type="Submit" value="Click"/>
+</form>
+
+http://localhost:8080/Servlet1
+
+Module 5:
+---------
+Deployment Descriptor
+Context parameters
+Servlet Paramters
+
+Every Project of the web application has a descriptor file
+web.xml 
+
+Web.xml is a application file that contains information
+common to the entire project.
+we can specify informations either specific for a particular
+servlet or to the entire applications.
+
+web.xml file contains:
+1. session information :
+
+ <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+
+2. It contains servlet mapping informations:
+Note: right click the project name-> add a new servlet->
+goto next->Check the box "Add information to deployment descriptor
+file"
+
+
+ <servlet>
+        <servlet-name>Servlet1</servlet-name>
+        <servlet-class>Servlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Servlet1</servlet-name>
+        <url-pattern>/Servlet1</url-pattern>
+    </servlet-mapping>
+
+
+http://localhost/Servlet1
+
+<url-pattern>/S1</url-pattern>
+
+http://localhost/S1
+
+when we need to access the data, from an index page..
+then
+
+<a href="S1">Goto Servlet1</a>
+
+3. welcome list information :
+------------------------------
+
+  <welcome-file-list>
+        <welcome-file>display.jsp</welcome-file>
+    </welcome-file-list>
+
+--- this is used to decide which page should run first
+in the program.
+
+this web.xml file provides facilities to store the
+data which is specific to a particular servlet or common
+for the entire applications.
+
+how do we store data that is specific for a particular
+Servlet?
+
+to access a particular value in a specific servlet, we
+should intialize data in web.xml file using
+<init-param>
+<param-name>k1</param-name>
+<param-value>Oliver</param-value>
+</init-param>
+
+to access the value of param,
+String name=this.getInitParameter("k1");
+
+Demo:
+In web.xml file :
+
+<servlet>
+        <servlet-name>Servlet1</servlet-name>
+        <servlet-class>Servlet1</servlet-class>
+        <init-param>
+            <param-name>Username</param-name>
+            <param-value>Admin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Password</param-name>
+            <param-value>pass@123</param-value>
+        </init-param>
+    </servlet>
+
+
+the above data can be accessed in Servlet1.java:
+
+String n=request.getParameter("t1");
+      String p=request.getParameter("t2");
+      
+      String uname=this.getInitParameter("Username");
+      String pass=this.getInitParameter("Password");
+      
+      if((n.equals(uname))&& (p.equals(pass)))
+          out.println("Success");
+      else
+          out.println("Error");
+
+
+
+<init-param>
+<param-name>Cost</param-name>
+<param-value>6200</param-value>
+<init-param>
+
+logic
+{
+}
+
+-- how do we set value for a particular servlet and reuse
+the value with minimal modifications.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
